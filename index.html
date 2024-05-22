@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de LED</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="login-container">
+        <h2>Insira a Senha</h2>
+        <input type="password" id="password" placeholder="Senha">
+        <button onclick="checkPassword()">Entrar</button>
+        <p id="error-message"></p>
+    </div>
+
+    <div id="led-controls" style="display: none;">
+        <h2>Controle do LED</h2>
+        <button onclick="controlLed('on')">Ligar LED</button>
+        <button onclick="controlLed('off')">Desligar LED</button>
+        <p id="led-status"></p>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
