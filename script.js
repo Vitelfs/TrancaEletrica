@@ -1,51 +1,79 @@
-function togglePasswordVisibility(passwordId) {
-  var passwordField = document.getElementById(passwordId);
-  passwordField.type = passwordField.type === "password" ? "text" : "password";
+var input = document.getElementById("pass");
+input.addEventListener("keypress", function(event)
+{
+    if (event.key === "Enter")
+    {
+        event.preventDefault();
+        document.getElementById("botao").click();
+    }
+});
+
+function showPass(){
+  let pass = document.getElementById("pass");
+  if(pass.type === "password"){
+    pass.type = "text";
+  }
+  else{
+    pass.type = "password";
+  }
+}
+
+function showPassCadastro(){
+  let pass1 = document.getElementById("passCadastro");
+  let pass2 = document.getElementById("passConfirm");
+  if(pass1.type === "password" && pass2.type === "password"){
+    pass1.type = "text";
+    pass2.type = "text";
+  }
+  else{
+    pass1.type = "password";
+    pass2.type = "password";
+  }
 }
 
 function registerPassword() {
-  var password = document.getElementById("register-password").value;
-  var passwordMessage = document.getElementById("register-message");
+  var password = document.getElementById("passCadastro").value;
+  var passwordConfirm = document.getElementById("passConfirm").value;
 
-  if (/^\d{6}$/.test(password)) {
-    localStorage.setItem("password", password);
-    passwordMessage.textContent = "Senha cadastrada com sucesso!";
-    passwordMessage.style.color = "green";
-    document.getElementById("register-container").style.display = "none";
-    document.getElementById("login-container").style.display = "block";
-    $.ajax({
-      url: "http://192.168.26.168/S",
-    });
-  } else {
-    passwordMessage.textContent = "A senha deve ter exatamente 6 dígitos numéricos.";
-    passwordMessage.style.color = "red";
+  if (password == passwordConfirm){
+    if (/^\d{6}$/.test(password)) {
+      localStorage.setItem("password", password);
+      alert("Senha cadastrada com sucesso")
+      $.ajax({
+        url: "http://192.168.26.168/S",
+      });
+    } else {
+      alert("A senha deve ter 6 dígitos numéricos");
+    }
+  }
+  else{
+    alert("As senhas não correspondem");
   }
 }
 
 function checkPassword() {
-  var enteredPassword = document.getElementById("password").value;
+  var enteredPassword = document.getElementById("pass").value;
   var storedPassword = localStorage.getItem("password");
 
   if (enteredPassword === storedPassword) {
-    document.getElementById("login-container").style.display = "none";
-    document.getElementById("led-controls").style.display = "block";
+    document.getElementById("form-login").style.display = "none";
+    document.getElementById("form-controle").style.display = "block";
   } else {
-    document.getElementById("error-message").textContent = "Senha incorreta. Tente novamente.";
+    alert("Senha incorreta, tente novamente")
   }
 }
 
-function controlLed(action) {
-  var ledStatus = document.getElementById("led-status");
-
-  if (action === "on") {
-    ledStatus.textContent = "LED está ligado.";
-    ledStatus.style.color = "green";
+function controlLock(action) {
+  var status = document.getElementById("status");
+  if (action == "open") {
+    status.innerText = "A tranca está aberta";
+    status.style.color = "green";
     $.ajax({
       url: "http://192.168.26.168/H",
     });
   } else {
-    ledStatus.textContent = "LED está desligado.";
-    ledStatus.style.color = "red";
+    status.innerText = "A tranca está fechada";
+    status.style.color = "red";
     $.ajax({
       url: "http://192.168.26.168/L",
     });
@@ -53,44 +81,38 @@ function controlLed(action) {
 }
 
 function showChangePassword() {
-  document.getElementById("led-controls").style.display = "none";
-  document.getElementById("change-password").style.display = "block";
+  document.getElementById("form-controle").style.display = "none";
+  document.getElementById("form-changePass").style.display = "block";
 }
 
 function changePassword() {
-  var newPassword = document.getElementById("new-password").value;
-  var changePasswordMessage = document.getElementById("change-password-message");
+  let newPassword = document.getElementById("newPass").value;
+  let newPasswordConfirm = document.getElementById("newPassConfirm").value;
 
-  if (/^\d{6}$/.test(newPassword)) {
-    localStorage.setItem("password", newPassword);
-    changePasswordMessage.textContent = "Senha alterada com sucesso!";
-    changePasswordMessage.style.color = "green";
-    $.ajax({
-      url: "http://192.168.26.168/A",
-    });
-    setTimeout(function () {
-      document.getElementById("change-password").style.display = "none";
-      document.getElementById("led-controls").style.display = "block";
-    }, 2000);
-  } else {
-    changePasswordMessage.textContent = "A nova senha deve ter exatamente 6 dígitos numéricos.";
-    changePasswordMessage.style.color = "red";
+  if (newPassword == newPasswordConfirm){
+    if (/^\d{6}$/.test(newPassword)) {
+      localStorage.setItem("password", newPassword);
+      alert("Senha alterada com sucesso");
+      backControl();
+      $.ajax({
+        url: "http://192.168.26.168/A",
+      });
+    } else {
+      alert("A nova senha deve ter exatamente 6 dígitos numéricos");
+    }
+  }
+  else{
+    alert("As senhas não correspondem")
   }
 }
 
 function logout() {
-  document.getElementById("led-controls").style.display = "none";
-  document.getElementById("login-container").style.display = "block";
+  document.getElementById("form-controle").style.display = "none";
+  document.getElementById("form-login").style.display = "block";
+  document.getElementById("pass").value = "";
 }
 
-window.onload = function () {
-  var storedPassword = localStorage.getItem("password");
-
-  if (storedPassword) {
-    document.getElementById("register-container").style.display = "none";
-    document.getElementById("login-container").style.display = "block";
-  } else {
-    document.getElementById("register-container").style.display = "block";
-    document.getElementById("login-container").style.display = "none";
-  }
-};
+function backControl(){
+  document.getElementById("form-controle").style.display = "block";
+  document.getElementById("form-changePass").style.display = "none";
+}
