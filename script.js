@@ -5,15 +5,20 @@ function togglePasswordVisibility(passwordId) {
 
 function registerPassword() {
   var password = document.getElementById("register-password").value;
-  if (password) {
+  var passwordMessage = document.getElementById("register-message");
+
+  if (/^\d{6}$/.test(password)) {
     localStorage.setItem("password", password);
-    document.getElementById("register-message").textContent =
-      "Senha cadastrada com sucesso!";
-    document.getElementById("register-message").style.color = "green";
+    passwordMessage.textContent = "Senha cadastrada com sucesso!";
+    passwordMessage.style.color = "green";
+    document.getElementById("register-container").style.display = "none";
+    document.getElementById("login-container").style.display = "block";
+    $.ajax({
+      url: "http://192.168.26.168/S",
+    });
   } else {
-    document.getElementById("register-message").textContent =
-      "Por favor, insira uma senha.";
-    document.getElementById("register-message").style.color = "red";
+    passwordMessage.textContent = "A senha deve ter exatamente 6 dígitos numéricos.";
+    passwordMessage.style.color = "red";
   }
 }
 
@@ -25,13 +30,13 @@ function checkPassword() {
     document.getElementById("login-container").style.display = "none";
     document.getElementById("led-controls").style.display = "block";
   } else {
-    document.getElementById("error-message").textContent =
-      "Senha incorreta. Tente novamente.";
+    document.getElementById("error-message").textContent = "Senha incorreta. Tente novamente.";
   }
 }
 
 function controlLed(action) {
   var ledStatus = document.getElementById("led-status");
+
   if (action === "on") {
     ledStatus.textContent = "LED está ligado.";
     ledStatus.style.color = "green";
@@ -54,20 +59,22 @@ function showChangePassword() {
 
 function changePassword() {
   var newPassword = document.getElementById("new-password").value;
-  if (newPassword) {
-    localStorage.setItem("password", newPassword);
-    document.getElementById("change-password-message").textContent =
-      "Senha alterada com sucesso!";
-    document.getElementById("change-password-message").style.color = "green";
+  var changePasswordMessage = document.getElementById("change-password-message");
 
+  if (/^\d{6}$/.test(newPassword)) {
+    localStorage.setItem("password", newPassword);
+    changePasswordMessage.textContent = "Senha alterada com sucesso!";
+    changePasswordMessage.style.color = "green";
+    $.ajax({
+      url: "http://192.168.26.168/A",
+    });
     setTimeout(function () {
       document.getElementById("change-password").style.display = "none";
       document.getElementById("led-controls").style.display = "block";
     }, 2000);
   } else {
-    document.getElementById("change-password-message").textContent =
-      "Por favor, insira uma nova senha.";
-    document.getElementById("change-password-message").style.color = "red";
+    changePasswordMessage.textContent = "A nova senha deve ter exatamente 6 dígitos numéricos.";
+    changePasswordMessage.style.color = "red";
   }
 }
 
@@ -77,8 +84,13 @@ function logout() {
 }
 
 window.onload = function () {
-  if (localStorage.getItem("password")) {
+  var storedPassword = localStorage.getItem("password");
+
+  if (storedPassword) {
     document.getElementById("register-container").style.display = "none";
     document.getElementById("login-container").style.display = "block";
+  } else {
+    document.getElementById("register-container").style.display = "block";
+    document.getElementById("login-container").style.display = "none";
   }
 };
