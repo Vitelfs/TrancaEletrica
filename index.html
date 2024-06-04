@@ -11,7 +11,7 @@
     <script type="module" src="script.js" defer></script>
 </head>
 <body>
-    <main class="form-signin w-100 m-auto p-4" id="form-login">
+    <main class="form-signin w-100 m-auto p-5" id="form-login">
         <div>
             <div class="form-floating mb-2">
                 <input type="email" class="form-control" id="email" placeholder="nome@exemplo.com" autocomplete="off">
@@ -64,17 +64,31 @@
         </div>
     </main>
 
-    <main class="form-signin w-100 m-auto p-4" id="form-controle">
+    <main class="form-signin text-center w-100 m-auto p-5" id="form-controle">
         <div>
             <div class="d-grid gap-2">
-                <label>Controles</label>
-                <button class="btn btn-success w-100 py-2" id="openButton">Abrir</button>
-                <button class="btn btn-danger w-100 py-2" id="closeButton">Fechar</button>
+                <label class="text-center m-1">Controles</label>
+                <div class="text-center form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="openDoorSwitch">
+                    <label class="form-check-label" for="openDoorSwitch" id="labelDoorSwitch">Porta</label>
+                </div>
+                
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="turnOnAirConditioningSwitch">
+                    <label class="form-check-label" for="turnOnAirConditioningSwitch" id="labelAirConditioningSwitch">Ar condicionado</label>
+                </div>
+                
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="turnOnLightSwitch">
+                    <label class="form-check-label" for="turnOnLightSwitch" id="labelLightSwitch">Lâmpada</label>
+                </div>
+                
                 <button class="btn btn-light w-100 py-2" id="logoutButton">Logout</button>
                 <label id="status"></label>
             </div>
         </div>
     </main>
+    
 
     <main class="form-signin w-100 m-auto p-4" id="form-changePass">
         <div>
