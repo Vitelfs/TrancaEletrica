@@ -9,7 +9,7 @@ body {
   background: linear-gradient(144deg, rgba(2,0,36,1) 13%, rgba(9,9,121,1) 35%, rgba(7,65,158,1) 53%, rgba(0,212,255,1) 100%);
 }
 
-main{
+main {
     box-shadow: 0 0 9px black;
     border-radius: 15px;
     background-color: rgb(255, 255, 255);
@@ -29,11 +29,24 @@ main{
 }
 
 #form-controle,
-#form-changePass{
+#form-changePass {
     display: none;
+    transition: 0.7s;
 }
 
-#logoutButton{
+#logoutButton {
     background-color: rgb(54, 20, 207);
     color: white;
+}
+
+#label2 {
+  margin-top: 25px;
+}
+
+.text-center label {
+  float: right;
+}
+
+#status {
+  margin-top: 10px;
 }

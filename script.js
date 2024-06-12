@@ -13,17 +13,21 @@ document.addEventListener("DOMContentLoaded", function () {
     .addEventListener("change", function () {
       
       if (this.checked) {
-        status.innerText = "A tranca está aberta";
+        status.innerText = "A porta está destrancada";
         status.style.color = "green";
+        aumentarAltura();
         $.ajax({
           url: "http://192.168.26.168/H",
         });
+        setTimeout(recuperarAltura, 3000);
       } else {
-        status.innerText = "A tranca está fechada";
+        status.innerText = "A porta está trancada";
         status.style.color = "red";
+        aumentarAltura();
         $.ajax({
           url: "http://192.168.26.168/L",
         });
+        setTimeout(recuperarAltura, 3000);
       }
     });
 
@@ -31,38 +35,111 @@ document.addEventListener("DOMContentLoaded", function () {
     .getElementById("turnOnAirConditioningSwitch")
     .addEventListener("change", function () {
       if (this.checked) {
-        status.innerText = "O ar condicionado está ligado";
+        status.innerText = "O ar-condicionado está ligado";
         status.style.color = "green";
+        aumentarAltura();
         $.ajax({
           url: "http://192.168.26.168/MUDAR",
         });
+        setTimeout(recuperarAltura, 3000);
       } else {
-        status.innerText = "O ar condicionado está desligado";
+        status.innerText = "O ar-condicionado está desligado";
         status.style.color = "red";
+        aumentarAltura();
         $.ajax({
           url: "http://192.168.26.168/MUDAR",
         });
+        setTimeout(recuperarAltura, 3000);
       }
     });
 
-  document
-    .getElementById("turnOnLightSwitch")
+    document
+    .getElementById("alarmSwitch")
     .addEventListener("change", function () {
       if (this.checked) {
-        status.innerText = "A luz está ligada";
+        status.innerText = "O alarme está ligado";
         status.style.color = "green";
+        aumentarAltura();
         $.ajax({
           url: "http://192.168.26.168/MUDAR",
         });
+        setTimeout(recuperarAltura, 3000);
       } else {
-        status.innerText = "A luz está desligada";
+        status.innerText = "O alarme está desligado";
         status.style.color = "red";
+        aumentarAltura();
         $.ajax({
           url: "http://192.168.26.168/MUDAR",
         });
+        setTimeout(recuperarAltura, 3000);
       }
     });
 
+    document
+    .getElementById("turnOnLightSwitchSala")
+    .addEventListener("change", function () {
+      if (this.checked) {
+        status.innerText = "A luz da sala está acesa";
+        status.style.color = "green";
+        aumentarAltura();
+        $.ajax({
+          url: "http://192.168.26.168/MUDAR",
+        });
+        setTimeout(recuperarAltura, 3000);
+      } else {
+        status.innerText = "A luz da sala está apagada";
+        status.style.color = "red";
+        aumentarAltura();
+        $.ajax({
+          url: "http://192.168.26.168/MUDAR",
+        });
+        setTimeout(recuperarAltura, 3000);
+      }
+    });
+
+    document
+    .getElementById("turnOnLightSwitchCozinha")
+    .addEventListener("change", function () {
+      if (this.checked) {
+        status.innerText = "A luz da cozinha está acesa";
+        status.style.color = "green";
+        aumentarAltura();
+        $.ajax({
+          url: "http://192.168.26.168/MUDAR",
+        });
+        setTimeout(recuperarAltura, 3000);
+      } else {
+        status.innerText = "A luz da cozinha está apagada";
+        status.style.color = "red";
+        aumentarAltura();
+        $.ajax({
+          url: "http://192.168.26.168/MUDAR",
+        });
+        setTimeout(recuperarAltura, 3000);
+      }
+    });
+
+    document
+    .getElementById("turnOnLightSwitchQuarto")
+    .addEventListener("change", function () {
+      if (this.checked) {
+        status.innerText = "A luz do quarto está acesa";
+        status.style.color = "green";
+        aumentarAltura();
+        $.ajax({
+          url: "http://192.168.26.168/MUDAR",
+        });
+        setTimeout(recuperarAltura, 3000);
+      } else {
+        status.innerText = "A luz do quarto está apagada";
+        status.style.color = "red";
+        aumentarAltura();
+        $.ajax({
+          url: "http://192.168.26.168/MUDAR",
+        });
+        setTimeout(recuperarAltura, 3000);
+      }
+    });
   document.getElementById("logoutButton").addEventListener("click", logout);
   document.getElementById("botao").addEventListener("click", login);
   document
@@ -192,4 +269,20 @@ function showPassCadastro() {
     pass1.type = "password";
     pass2.type = "password";
   }
+}
+
+function aumentarAltura() {
+  let moldura = document.getElementById("form-controle");
+  moldura.style.height = "484px"
+  setTimeout(appearStatus, 700)
+}
+
+function recuperarAltura() {
+  let moldura = document.getElementById("form-controle");
+  moldura.style.height = "444px"
+  status.style.display = "none";
+}
+
+function appearStatus() {
+  status.style.display = "inline";
 }
